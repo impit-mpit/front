@@ -9,9 +9,12 @@ spec:
   gateways:
   - grpc-gateway
   http:
-  - match:
+  - name: "frontend-routes"
+    match:
     - uri:
-        prefix: /
+        prefix: "/"
+    rewrite:
+      uri: "/"
     route:
     - destination:
         host: frontend
