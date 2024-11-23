@@ -3,9 +3,9 @@ FROM oven/bun:canary AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-COPY bun.lockb ./
-RUN bun i --silent
+COPY package.json bun.lockb ./
+
+RUN bun install --frozen-lockfile
 
 COPY . .
 
