@@ -3,9 +3,9 @@
  * Do not edit manually.
  * OpenAPI spec version: 0.0.1
  */
-import type { MediaV1Media } from './mediaV1Media';
+import type { MediaV1ShortMedia } from './mediaV1ShortMedia';
 
 export interface MediaV1GetMediaFeedResponse {
-  media?: MediaV1Media[];
+  media?: MediaV1ShortMedia[];
   total?: number;
 }

@@ -13,6 +13,8 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as VideosVideoidImport } from './routes/videos/$videoid'
+import { Route as ArticleArticleidImport } from './routes/article/$articleid'
 
 // Create Virtual Routes
 
@@ -26,6 +28,18 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
+const VideosVideoidRoute = VideosVideoidImport.update({
+  id: '/videos/$videoid',
+  path: '/videos/$videoid',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ArticleArticleidRoute = ArticleArticleidImport.update({
+  id: '/article/$articleid',
+  path: '/article/$articleid',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -37,6 +51,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/article/$articleid': {
+      id: '/article/$articleid'
+      path: '/article/$articleid'
+      fullPath: '/article/$articleid'
+      preLoaderRoute: typeof ArticleArticleidImport
+      parentRoute: typeof rootRoute
+    }
+    '/videos/$videoid': {
+      id: '/videos/$videoid'
+      path: '/videos/$videoid'
+      fullPath: '/videos/$videoid'
+      preLoaderRoute: typeof VideosVideoidImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -44,32 +72,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/article/$articleid': typeof ArticleArticleidRoute
+  '/videos/$videoid': typeof VideosVideoidRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/article/$articleid': typeof ArticleArticleidRoute
+  '/videos/$videoid': typeof VideosVideoidRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/article/$articleid': typeof ArticleArticleidRoute
+  '/videos/$videoid': typeof VideosVideoidRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/article/$articleid' | '/videos/$videoid'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/article/$articleid' | '/videos/$videoid'
+  id: '__root__' | '/' | '/article/$articleid' | '/videos/$videoid'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  ArticleArticleidRoute: typeof ArticleArticleidRoute
+  VideosVideoidRoute: typeof VideosVideoidRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  ArticleArticleidRoute: ArticleArticleidRoute,
+  VideosVideoidRoute: VideosVideoidRoute,
 }
 
 export const routeTree = rootRoute
@@ -82,11 +120,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/article/$articleid",
+        "/videos/$videoid"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/article/$articleid": {
+      "filePath": "article/$articleid.tsx"
+    },
+    "/videos/$videoid": {
+      "filePath": "videos/$videoid.tsx"
     }
   }
 }

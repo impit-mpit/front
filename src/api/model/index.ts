@@ -8,6 +8,7 @@ export * from './mediaServiceGetMediaFeedParams';
 export * from './mediaV1CreateMediaRequest';
 export * from './mediaV1GetMediaFeedResponse';
 export * from './mediaV1Media';
+export * from './mediaV1ShortMedia';
 export * from './mediaV1UpdateMediaRequest';
 export * from './newsServiceGetNewsFeedParams';
 export * from './newsV1CreateNewsRequest';

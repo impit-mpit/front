@@ -4,7 +4,7 @@ import { ChevronUp } from "@atomaro/icons";
 
 export default function Header(){
     return(
-        <div className="w-full bg-white px-10 py-9 rounded-[20px]">
+        <div className="w-full bg-white label px-10 py-9 rounded-[20px]">
             <div className="flex flex-row justify-between items-center">
                 <Link className="flex flex-row gap-3 items-center">
                     <img src={Logo} className="w-12 h-12" />
