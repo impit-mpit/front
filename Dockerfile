@@ -1,11 +1,12 @@
 
-FROM node:20-alpine as builder
+FROM oven/bun:slim AS development
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY package.json /app/package.json
+COPY bun.lockb /app/bun.lockb
 
-RUN npm i
+RUN bun i --silent
 
 COPY . .
 
