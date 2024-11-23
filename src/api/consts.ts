@@ -1,0 +1,1 @@
+export const NEWS_API = "https://nmost.site/api/v1/news"
