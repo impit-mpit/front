@@ -10,7 +10,7 @@ COPY . .
 
 RUN bun i --silent
 
-RUN npm run build
+RUN bun run build
 
 FROM nginx:alpine
 
