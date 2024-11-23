@@ -23,6 +23,11 @@ import type {
 import type {
   AiV1ChatResponse,
   AiV1CreateChatRequest,
+  CategoryServiceGetCategoryFeedParams,
+  CategoryV1Category,
+  CategoryV1CreateCategoryRequest,
+  CategoryV1GetCategoryFeedResponse,
+  CategoryV1UpdateCategoryRequest,
   MediaServiceGetMediaFeedParams,
   MediaV1CreateMediaRequest,
   MediaV1GetMediaFeedResponse,
@@ -32,7 +37,12 @@ import type {
   NewsV1CreateNewsRequest,
   NewsV1GetNewsFeedResponse,
   NewsV1News,
-  NewsV1UpdateNewsRequest
+  NewsV1UpdateNewsRequest,
+  TagsServiceGetTagsFeedParams,
+  TagsV1CreateTagsRequest,
+  TagsV1GetTagsFeedResponse,
+  TagsV1Tags,
+  TagsV1UpdateTagsRequest
 } from '../model'
 import { requestInstance } from './axios-instance';
 import type { ErrorType } from './axios-instance';
@@ -88,6 +98,327 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getAIServiceChatMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const categoryServiceGetCategoryFeed = (
+    params?: CategoryServiceGetCategoryFeedParams,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<CategoryV1GetCategoryFeedResponse>(
+      {url: `/v1/category`, method: 'GET',
+        params, signal
+    },
+      );
+    }
+  
+
+export const getCategoryServiceGetCategoryFeedQueryKey = (params?: CategoryServiceGetCategoryFeedParams,) => {
+    return [`/v1/category`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getCategoryServiceGetCategoryFeedQueryOptions = <TData = Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError = ErrorType<unknown>>(params?: CategoryServiceGetCategoryFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getCategoryServiceGetCategoryFeedQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>> = ({ signal }) => categoryServiceGetCategoryFeed(params, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type CategoryServiceGetCategoryFeedQueryResult = NonNullable<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>>
+export type CategoryServiceGetCategoryFeedQueryError = ErrorType<unknown>
+
+
+export function useCategoryServiceGetCategoryFeed<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError = ErrorType<unknown>>(
+ params: undefined |  CategoryServiceGetCategoryFeedParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useCategoryServiceGetCategoryFeed<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError = ErrorType<unknown>>(
+ params?: CategoryServiceGetCategoryFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useCategoryServiceGetCategoryFeed<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError = ErrorType<unknown>>(
+ params?: CategoryServiceGetCategoryFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useCategoryServiceGetCategoryFeed<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError = ErrorType<unknown>>(
+ params?: CategoryServiceGetCategoryFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryFeed>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getCategoryServiceGetCategoryFeedQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const categoryServiceCreateCategory = (
+    categoryV1CreateCategoryRequest: CategoryV1CreateCategoryRequest,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/category`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: categoryV1CreateCategoryRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getCategoryServiceCreateCategoryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoryServiceCreateCategory>>, TError,{data: CategoryV1CreateCategoryRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof categoryServiceCreateCategory>>, TError,{data: CategoryV1CreateCategoryRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof categoryServiceCreateCategory>>, {data: CategoryV1CreateCategoryRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  categoryServiceCreateCategory(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CategoryServiceCreateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof categoryServiceCreateCategory>>>
+    export type CategoryServiceCreateCategoryMutationBody = CategoryV1CreateCategoryRequest
+    export type CategoryServiceCreateCategoryMutationError = ErrorType<unknown>
+
+    export const useCategoryServiceCreateCategory = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoryServiceCreateCategory>>, TError,{data: CategoryV1CreateCategoryRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof categoryServiceCreateCategory>>,
+        TError,
+        {data: CategoryV1CreateCategoryRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getCategoryServiceCreateCategoryMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const categoryServiceGetCategoryById = (
+    id: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<CategoryV1Category>(
+      {url: `/v1/category/${id}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getCategoryServiceGetCategoryByIdQueryKey = (id: string,) => {
+    return [`/v1/category/${id}`] as const;
+    }
+
+    
+export const getCategoryServiceGetCategoryByIdQueryOptions = <TData = Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getCategoryServiceGetCategoryByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>> = ({ signal }) => categoryServiceGetCategoryById(id, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type CategoryServiceGetCategoryByIdQueryResult = NonNullable<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>>
+export type CategoryServiceGetCategoryByIdQueryError = ErrorType<unknown>
+
+
+export function useCategoryServiceGetCategoryById<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError = ErrorType<unknown>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof categoryServiceGetCategoryById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useCategoryServiceGetCategoryById<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof categoryServiceGetCategoryById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useCategoryServiceGetCategoryById<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useCategoryServiceGetCategoryById<TData = Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoryServiceGetCategoryById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getCategoryServiceGetCategoryByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const categoryServiceUpdateCategory = (
+    id: string,
+    categoryV1UpdateCategoryRequest: CategoryV1UpdateCategoryRequest,
+ ) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/category/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: categoryV1UpdateCategoryRequest
+    },
+      );
+    }
+  
+
+
+export const getCategoryServiceUpdateCategoryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoryServiceUpdateCategory>>, TError,{id: string;data: CategoryV1UpdateCategoryRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof categoryServiceUpdateCategory>>, TError,{id: string;data: CategoryV1UpdateCategoryRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof categoryServiceUpdateCategory>>, {id: string;data: CategoryV1UpdateCategoryRequest}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  categoryServiceUpdateCategory(id,data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CategoryServiceUpdateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof categoryServiceUpdateCategory>>>
+    export type CategoryServiceUpdateCategoryMutationBody = CategoryV1UpdateCategoryRequest
+    export type CategoryServiceUpdateCategoryMutationError = ErrorType<unknown>
+
+    export const useCategoryServiceUpdateCategory = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoryServiceUpdateCategory>>, TError,{id: string;data: CategoryV1UpdateCategoryRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof categoryServiceUpdateCategory>>,
+        TError,
+        {id: string;data: CategoryV1UpdateCategoryRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getCategoryServiceUpdateCategoryMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const categoryServiceDeleteCategory = (
+    id: string,
+ ) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/category/${id}`, method: 'DELETE'
+    },
+      );
+    }
+  
+
+
+export const getCategoryServiceDeleteCategoryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoryServiceDeleteCategory>>, TError,{id: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof categoryServiceDeleteCategory>>, TError,{id: string}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof categoryServiceDeleteCategory>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  categoryServiceDeleteCategory(id,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CategoryServiceDeleteCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof categoryServiceDeleteCategory>>>
+    
+    export type CategoryServiceDeleteCategoryMutationError = ErrorType<unknown>
+
+    export const useCategoryServiceDeleteCategory = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoryServiceDeleteCategory>>, TError,{id: string}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof categoryServiceDeleteCategory>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getCategoryServiceDeleteCategoryMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -730,6 +1061,327 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getNewsServiceDeleteNewsMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const tagsServiceGetTagsFeed = (
+    params?: TagsServiceGetTagsFeedParams,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<TagsV1GetTagsFeedResponse>(
+      {url: `/v1/tags`, method: 'GET',
+        params, signal
+    },
+      );
+    }
+  
+
+export const getTagsServiceGetTagsFeedQueryKey = (params?: TagsServiceGetTagsFeedParams,) => {
+    return [`/v1/tags`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getTagsServiceGetTagsFeedQueryOptions = <TData = Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError = ErrorType<unknown>>(params?: TagsServiceGetTagsFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getTagsServiceGetTagsFeedQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>> = ({ signal }) => tagsServiceGetTagsFeed(params, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type TagsServiceGetTagsFeedQueryResult = NonNullable<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>>
+export type TagsServiceGetTagsFeedQueryError = ErrorType<unknown>
+
+
+export function useTagsServiceGetTagsFeed<TData = Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError = ErrorType<unknown>>(
+ params: undefined |  TagsServiceGetTagsFeedParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useTagsServiceGetTagsFeed<TData = Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError = ErrorType<unknown>>(
+ params?: TagsServiceGetTagsFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useTagsServiceGetTagsFeed<TData = Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError = ErrorType<unknown>>(
+ params?: TagsServiceGetTagsFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useTagsServiceGetTagsFeed<TData = Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError = ErrorType<unknown>>(
+ params?: TagsServiceGetTagsFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsFeed>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getTagsServiceGetTagsFeedQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const tagsServiceCreateTags = (
+    tagsV1CreateTagsRequest: TagsV1CreateTagsRequest,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/tags`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: tagsV1CreateTagsRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getTagsServiceCreateTagsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tagsServiceCreateTags>>, TError,{data: TagsV1CreateTagsRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof tagsServiceCreateTags>>, TError,{data: TagsV1CreateTagsRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tagsServiceCreateTags>>, {data: TagsV1CreateTagsRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  tagsServiceCreateTags(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TagsServiceCreateTagsMutationResult = NonNullable<Awaited<ReturnType<typeof tagsServiceCreateTags>>>
+    export type TagsServiceCreateTagsMutationBody = TagsV1CreateTagsRequest
+    export type TagsServiceCreateTagsMutationError = ErrorType<unknown>
+
+    export const useTagsServiceCreateTags = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tagsServiceCreateTags>>, TError,{data: TagsV1CreateTagsRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof tagsServiceCreateTags>>,
+        TError,
+        {data: TagsV1CreateTagsRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getTagsServiceCreateTagsMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const tagsServiceGetTagsById = (
+    id: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<TagsV1Tags>(
+      {url: `/v1/tags/${id}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getTagsServiceGetTagsByIdQueryKey = (id: string,) => {
+    return [`/v1/tags/${id}`] as const;
+    }
+
+    
+export const getTagsServiceGetTagsByIdQueryOptions = <TData = Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getTagsServiceGetTagsByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tagsServiceGetTagsById>>> = ({ signal }) => tagsServiceGetTagsById(id, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type TagsServiceGetTagsByIdQueryResult = NonNullable<Awaited<ReturnType<typeof tagsServiceGetTagsById>>>
+export type TagsServiceGetTagsByIdQueryError = ErrorType<unknown>
+
+
+export function useTagsServiceGetTagsById<TData = Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError = ErrorType<unknown>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof tagsServiceGetTagsById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useTagsServiceGetTagsById<TData = Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof tagsServiceGetTagsById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useTagsServiceGetTagsById<TData = Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useTagsServiceGetTagsById<TData = Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getTagsServiceGetTagsByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const tagsServiceUpdateTags = (
+    id: string,
+    tagsV1UpdateTagsRequest: TagsV1UpdateTagsRequest,
+ ) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/tags/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: tagsV1UpdateTagsRequest
+    },
+      );
+    }
+  
+
+
+export const getTagsServiceUpdateTagsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tagsServiceUpdateTags>>, TError,{id: string;data: TagsV1UpdateTagsRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof tagsServiceUpdateTags>>, TError,{id: string;data: TagsV1UpdateTagsRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tagsServiceUpdateTags>>, {id: string;data: TagsV1UpdateTagsRequest}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  tagsServiceUpdateTags(id,data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TagsServiceUpdateTagsMutationResult = NonNullable<Awaited<ReturnType<typeof tagsServiceUpdateTags>>>
+    export type TagsServiceUpdateTagsMutationBody = TagsV1UpdateTagsRequest
+    export type TagsServiceUpdateTagsMutationError = ErrorType<unknown>
+
+    export const useTagsServiceUpdateTags = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tagsServiceUpdateTags>>, TError,{id: string;data: TagsV1UpdateTagsRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof tagsServiceUpdateTags>>,
+        TError,
+        {id: string;data: TagsV1UpdateTagsRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getTagsServiceUpdateTagsMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const tagsServiceDeleteTags = (
+    id: string,
+ ) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/tags/${id}`, method: 'DELETE'
+    },
+      );
+    }
+  
+
+
+export const getTagsServiceDeleteTagsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tagsServiceDeleteTags>>, TError,{id: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof tagsServiceDeleteTags>>, TError,{id: string}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tagsServiceDeleteTags>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  tagsServiceDeleteTags(id,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TagsServiceDeleteTagsMutationResult = NonNullable<Awaited<ReturnType<typeof tagsServiceDeleteTags>>>
+    
+    export type TagsServiceDeleteTagsMutationError = ErrorType<unknown>
+
+    export const useTagsServiceDeleteTags = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tagsServiceDeleteTags>>, TError,{id: string}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof tagsServiceDeleteTags>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getTagsServiceDeleteTagsMutationOptions(options);
 
       return useMutation(mutationOptions);
     }

@@ -6,6 +6,11 @@
 
 export * from './aiV1ChatResponse';
 export * from './aiV1CreateChatRequest';
+export * from './categoryServiceGetCategoryFeedParams';
+export * from './categoryV1Category';
+export * from './categoryV1CreateCategoryRequest';
+export * from './categoryV1GetCategoryFeedResponse';
+export * from './categoryV1UpdateCategoryRequest';
 export * from './mediaServiceGetMediaFeedParams';
 export * from './mediaV1CreateMediaRequest';
 export * from './mediaV1GetMediaFeedResponse';
@@ -18,3 +23,8 @@ export * from './newsV1GetNewsFeedResponse';
 export * from './newsV1News';
 export * from './newsV1ShortNews';
 export * from './newsV1UpdateNewsRequest';
+export * from './tagsServiceGetTagsFeedParams';
+export * from './tagsV1CreateTagsRequest';
+export * from './tagsV1GetTagsFeedResponse';
+export * from './tagsV1Tags';
+export * from './tagsV1UpdateTagsRequest';
