@@ -4,4 +4,4 @@ resources:
 - deployment.yaml
 images:
 - name: ghcr.io/impit-mpit/front-main
-  newTag: 34b7369
+  newTag: 54e24b0
