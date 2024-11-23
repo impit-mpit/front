@@ -6,10 +6,13 @@ export const Route = createLazyFileRoute('/')({
   component: Index,
 })
 
-const Card =({data})=>{
+const Card =({data}:any)=>{
   return(
     <div className='w-[506px] h-[280px] flex flex-col gap-9 px-6 py-[30px] bg-white rounded-[20px]'>
-      <p>{data.title}</p>
+      <div>
+      <p className='font-medium text-2xl '>{data.title}</p>
+
+      </div>
       <p>{data.shortBody}</p>
     </div>
   )
