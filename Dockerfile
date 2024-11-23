@@ -1,5 +1,5 @@
 
-FROM oven/bun:1 AS builder
+FROM oven/bun:canary AS builder
 
 WORKDIR /app
 
