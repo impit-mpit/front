@@ -1,15 +1,15 @@
 
-FROM node:20-alpine as builder
+FROM oven/bun:1 AS builder
 
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-
-RUN npm i
+COPY bun.lockb ./
+RUN bun i --silent
 
 COPY . .
 
-RUN npm run build
+RUN bun run build
 
 FROM nginx:alpine
 
