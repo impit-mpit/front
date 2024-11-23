@@ -4,5 +4,7 @@ resources:
 - deployment.yaml
 - ingress.yaml
 images:
+- name: ghcr.io/impit-mpit/front-main
+  newTag: c39a28b
 - name: ghcr.io/impit-mpit/frontend-master
   newTag: latest
