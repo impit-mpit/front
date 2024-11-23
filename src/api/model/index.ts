@@ -4,6 +4,8 @@
  * OpenAPI spec version: 0.0.1
  */
 
+export * from './aiV1ChatResponse';
+export * from './aiV1CreateChatRequest';
 export * from './mediaServiceGetMediaFeedParams';
 export * from './mediaV1CreateMediaRequest';
 export * from './mediaV1GetMediaFeedResponse';

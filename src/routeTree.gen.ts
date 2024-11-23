@@ -13,20 +13,34 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthImport } from './routes/auth'
 import { Route as VideosVideoidImport } from './routes/videos/$videoid'
 import { Route as ArticleArticleidImport } from './routes/article/$articleid'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
+const AdminIndexLazyImport = createFileRoute('/admin/')()
 
 // Create/Update Routes
+
+const AuthRoute = AuthImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const AdminIndexLazyRoute = AdminIndexLazyImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
 
 const VideosVideoidRoute = VideosVideoidImport.update({
   id: '/videos/$videoid',
@@ -51,6 +65,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/article/$articleid': {
       id: '/article/$articleid'
       path: '/article/$articleid'
@@ -65,6 +86,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VideosVideoidImport
       parentRoute: typeof rootRoute
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -72,42 +100,63 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/auth': typeof AuthRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
+  '/admin': typeof AdminIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/auth': typeof AuthRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
+  '/admin': typeof AdminIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/auth': typeof AuthRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
+  '/admin/': typeof AdminIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/article/$articleid' | '/videos/$videoid'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/article/$articleid'
+    | '/videos/$videoid'
+    | '/admin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/article/$articleid' | '/videos/$videoid'
-  id: '__root__' | '/' | '/article/$articleid' | '/videos/$videoid'
+  to: '/' | '/auth' | '/article/$articleid' | '/videos/$videoid' | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/article/$articleid'
+    | '/videos/$videoid'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  AuthRoute: typeof AuthRoute
   ArticleArticleidRoute: typeof ArticleArticleidRoute
   VideosVideoidRoute: typeof VideosVideoidRoute
+  AdminIndexLazyRoute: typeof AdminIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  AuthRoute: AuthRoute,
   ArticleArticleidRoute: ArticleArticleidRoute,
   VideosVideoidRoute: VideosVideoidRoute,
+  AdminIndexLazyRoute: AdminIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -121,18 +170,26 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/auth",
         "/article/$articleid",
-        "/videos/$videoid"
+        "/videos/$videoid",
+        "/admin/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/auth": {
+      "filePath": "auth.tsx"
     },
     "/article/$articleid": {
       "filePath": "article/$articleid.tsx"
     },
     "/videos/$videoid": {
       "filePath": "videos/$videoid.tsx"
+    },
+    "/admin/": {
+      "filePath": "admin/index.lazy.tsx"
     }
   }
 }

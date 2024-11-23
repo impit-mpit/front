@@ -12,11 +12,14 @@ import {
   http
 } from 'msw'
 import type {
+  AiV1ChatResponse,
   MediaV1GetMediaFeedResponse,
   MediaV1Media,
   NewsV1GetNewsFeedResponse,
   NewsV1News
 } from '../model'
+
+export const getAIServiceChatResponseMock = (overrideResponse: Partial< AiV1ChatResponse > = {}): AiV1ChatResponse => ({message: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
 export const getMediaServiceGetMediaFeedResponseMock = (overrideResponse: Partial< MediaV1GetMediaFeedResponse > = {}): MediaV1GetMediaFeedResponse => ({media: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), shortDescription: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), thumbnailUrl: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), title: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), videoUrl: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
 
@@ -26,6 +29,18 @@ export const getNewsServiceGetNewsFeedResponseMock = (overrideResponse: Partial<
 
 export const getNewsServiceGetNewsByIdResponseMock = (overrideResponse: Partial< NewsV1News > = {}): NewsV1News => ({body: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), imageUrl: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), title: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
+
+export const getAIServiceChatMockHandler = (overrideResponse?: AiV1ChatResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<AiV1ChatResponse> | AiV1ChatResponse)) => {
+  return http.post('*/v1/ai/chat', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getAIServiceChatResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
 export const getMediaServiceGetMediaFeedMockHandler = (overrideResponse?: MediaV1GetMediaFeedResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<MediaV1GetMediaFeedResponse> | MediaV1GetMediaFeedResponse)) => {
   return http.get('*/v1/media', async (info) => {await delay(1000);
@@ -135,6 +150,7 @@ export const getNewsServiceDeleteNewsMockHandler = (overrideResponse?: unknown |
   })
 }
 export const getMock = () => [
+  getAIServiceChatMockHandler(),
   getMediaServiceGetMediaFeedMockHandler(),
   getMediaServiceCreateMediaMockHandler(),
   getMediaServiceGetMediaByIdMockHandler(),

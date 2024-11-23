@@ -27,8 +27,8 @@ const VideoCard =({data}:any)=>{
     <Link to={`/videos/${data.id}`}>
     <div className='w-[506px] h-[280px] flex flex-col justify-between px-6 py-[30px] bg-white rounded-[20px]'>
       <div className='flex flex-row justify-between'>
-      <p className='font-medium text-2xl label truncate'>{data.title}</p>
-      <div className='bg-content-primary rounded-full flex items-center justify-center w-8 h-8'>
+      <p className='font-medium text-2xl label truncate max-w-[400px]'>{data.title}</p>
+      <div className='bg-content-primary rounded-full flex items-center justify-center !w-8 !h-8'>
         <ArrowRight16 fill='#fff' />
       </div>
       </div>

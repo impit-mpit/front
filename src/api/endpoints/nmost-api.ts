@@ -21,6 +21,8 @@ import type {
   UseQueryResult
 } from '@tanstack/react-query'
 import type {
+  AiV1ChatResponse,
+  AiV1CreateChatRequest,
   MediaServiceGetMediaFeedParams,
   MediaV1CreateMediaRequest,
   MediaV1GetMediaFeedResponse,
@@ -37,6 +39,59 @@ import type { ErrorType } from './axios-instance';
 
 
 
+export const aIServiceChat = (
+    aiV1CreateChatRequest: AiV1CreateChatRequest,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<AiV1ChatResponse>(
+      {url: `/v1/ai/chat`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: aiV1CreateChatRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getAIServiceChatMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aIServiceChat>>, TError,{data: AiV1CreateChatRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof aIServiceChat>>, TError,{data: AiV1CreateChatRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof aIServiceChat>>, {data: AiV1CreateChatRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  aIServiceChat(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AIServiceChatMutationResult = NonNullable<Awaited<ReturnType<typeof aIServiceChat>>>
+    export type AIServiceChatMutationBody = AiV1CreateChatRequest
+    export type AIServiceChatMutationError = ErrorType<unknown>
+
+    export const useAIServiceChat = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aIServiceChat>>, TError,{data: AiV1CreateChatRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof aIServiceChat>>,
+        TError,
+        {data: AiV1CreateChatRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getAIServiceChatMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 export const mediaServiceGetMediaFeed = (
     params?: MediaServiceGetMediaFeedParams,
  signal?: AbortSignal
