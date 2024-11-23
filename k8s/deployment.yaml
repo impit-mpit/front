@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ghcr.io/impit-mpit/frontend-master:latest
+        image: ghcr.io/impit-mpit/front-main:latest
         ports:
         - containerPort: 8080
           name: grpc
