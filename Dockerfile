@@ -6,9 +6,9 @@ WORKDIR /app
 COPY package.json /app/package.json
 COPY bun.lockb /app/bun.lockb
 
-RUN bun i --silent
-
 COPY . .
+
+RUN bun i --silent
 
 RUN npm run build
 
