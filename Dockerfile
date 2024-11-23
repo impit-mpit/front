@@ -1,5 +1,5 @@
 
-FROM oven/bun:slim AS development
+FROM oven/bun:slim AS builder
 
 WORKDIR /app
 
