@@ -31,7 +31,7 @@ export default function Header(){
                         <ChevronUp />
                     </Link>
                 </div>
-                <Link className="bg-content-bright rounded-lg text-base text-white px-6 py-3 font-semibold">
+                <Link className="bg-content-bright rounded-lg text-base text-white bg-content-primary px-6 py-3 font-semibold">
                     Авторизация
                 </Link>
             </div>

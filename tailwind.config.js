@@ -7,7 +7,8 @@ module.exports = {
         "bg":"#F4F7FB",
         "content-primary":"#00A9FF",
         "text-primary":"#121315",
-        "content-bright":"#00A9FF"
+        "content-second":"#FAE5D1",
+        "content-third":"#F4F7FB"
       }
     },
   },
