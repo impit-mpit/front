@@ -1,4 +1,4 @@
-import * as React from 'react'
+
 import { createFileRoute } from '@tanstack/react-router'
 import { useMediaServiceGetMediaById } from '../../api/endpoints/nmost-api'
 import { Player } from '../../components/player'

@@ -1,5 +1,5 @@
 
-import { createFileRoute, useLoaderData, useParams } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { useNewsServiceGetNewsById } from '../../api/endpoints/nmost-api'
 
 export const Route = createFileRoute('/article/$articleid')({
