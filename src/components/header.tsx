@@ -18,7 +18,7 @@ export default function Header(){
                         <p>О проекте</p>
                         <ChevronUp />
                     </Link>
-                    <Link className="bg-bg flex flex-row items-center gap-2 py-3 px-6 rounded-lg">
+                    <Link className="bg-bg flex flex-row items-center gap-2 py-3 px-6 rounded-lg" to="/autism">
                         <p>Об аутизме</p>
                         <ChevronUp />
                     </Link>

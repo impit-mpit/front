@@ -21,6 +21,7 @@ import { Route as AdminEditNewsNewsidImport } from './routes/admin/edit/news/$ne
 // Create Virtual Routes
 
 const ChatLazyImport = createFileRoute('/chat')()
+const AutismLazyImport = createFileRoute('/autism')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
 const AdminNewNewsIndexLazyImport = createFileRoute('/admin/new/news/')()
@@ -32,6 +33,12 @@ const ChatLazyRoute = ChatLazyImport.update({
   path: '/chat',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/chat.lazy').then((d) => d.Route))
+
+const AutismLazyRoute = AutismLazyImport.update({
+  id: '/autism',
+  path: '/autism',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/autism.lazy').then((d) => d.Route))
 
 const AuthRoute = AuthImport.update({
   id: '/auth',
@@ -95,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
+    '/autism': {
+      id: '/autism'
+      path: '/autism'
+      fullPath: '/autism'
+      preLoaderRoute: typeof AutismLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/chat': {
       id: '/chat'
       path: '/chat'
@@ -145,6 +159,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/auth': typeof AuthRoute
+  '/autism': typeof AutismLazyRoute
   '/chat': typeof ChatLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
@@ -156,6 +171,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/auth': typeof AuthRoute
+  '/autism': typeof AutismLazyRoute
   '/chat': typeof ChatLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
@@ -168,6 +184,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/auth': typeof AuthRoute
+  '/autism': typeof AutismLazyRoute
   '/chat': typeof ChatLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
@@ -181,6 +198,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/autism'
     | '/chat'
     | '/article/$articleid'
     | '/videos/$videoid'
@@ -191,6 +209,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/autism'
     | '/chat'
     | '/article/$articleid'
     | '/videos/$videoid'
@@ -201,6 +220,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/autism'
     | '/chat'
     | '/article/$articleid'
     | '/videos/$videoid'
@@ -213,6 +233,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AuthRoute: typeof AuthRoute
+  AutismLazyRoute: typeof AutismLazyRoute
   ChatLazyRoute: typeof ChatLazyRoute
   ArticleArticleidRoute: typeof ArticleArticleidRoute
   VideosVideoidRoute: typeof VideosVideoidRoute
@@ -224,6 +245,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AuthRoute: AuthRoute,
+  AutismLazyRoute: AutismLazyRoute,
   ChatLazyRoute: ChatLazyRoute,
   ArticleArticleidRoute: ArticleArticleidRoute,
   VideosVideoidRoute: VideosVideoidRoute,
@@ -244,6 +266,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/auth",
+        "/autism",
         "/chat",
         "/article/$articleid",
         "/videos/$videoid",
@@ -257,6 +280,9 @@ export const routeTree = rootRoute
     },
     "/auth": {
       "filePath": "auth.tsx"
+    },
+    "/autism": {
+      "filePath": "autism.lazy.tsx"
     },
     "/chat": {
       "filePath": "chat.lazy.tsx"
