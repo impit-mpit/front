@@ -5,4 +5,4 @@ resources:
 - ingress.yaml
 images:
 - name: ghcr.io/impit-mpit/front-main
-  newTag: fde150c
+  newTag: 432bd6f
