@@ -16,13 +16,22 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthImport } from './routes/auth'
 import { Route as VideosVideoidImport } from './routes/videos/$videoid'
 import { Route as ArticleArticleidImport } from './routes/article/$articleid'
+import { Route as AdminEditNewsNewsidImport } from './routes/admin/edit/news/$newsid'
 
 // Create Virtual Routes
 
+const ChatLazyImport = createFileRoute('/chat')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
+const AdminNewNewsIndexLazyImport = createFileRoute('/admin/new/news/')()
 
 // Create/Update Routes
+
+const ChatLazyRoute = ChatLazyImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/chat.lazy').then((d) => d.Route))
 
 const AuthRoute = AuthImport.update({
   id: '/auth',
@@ -54,6 +63,20 @@ const ArticleArticleidRoute = ArticleArticleidImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AdminNewNewsIndexLazyRoute = AdminNewNewsIndexLazyImport.update({
+  id: '/admin/new/news/',
+  path: '/admin/new/news/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/admin/new/news/index.lazy').then((d) => d.Route),
+)
+
+const AdminEditNewsNewsidRoute = AdminEditNewsNewsidImport.update({
+  id: '/admin/edit/news/$newsid',
+  path: '/admin/edit/news/$newsid',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -70,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatLazyImport
       parentRoute: typeof rootRoute
     }
     '/article/$articleid': {
@@ -93,6 +123,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/admin/edit/news/$newsid': {
+      id: '/admin/edit/news/$newsid'
+      path: '/admin/edit/news/$newsid'
+      fullPath: '/admin/edit/news/$newsid'
+      preLoaderRoute: typeof AdminEditNewsNewsidImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/new/news/': {
+      id: '/admin/new/news/'
+      path: '/admin/new/news'
+      fullPath: '/admin/new/news'
+      preLoaderRoute: typeof AdminNewNewsIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -101,26 +145,35 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
   '/admin': typeof AdminIndexLazyRoute
+  '/admin/edit/news/$newsid': typeof AdminEditNewsNewsidRoute
+  '/admin/new/news': typeof AdminNewNewsIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
   '/admin': typeof AdminIndexLazyRoute
+  '/admin/edit/news/$newsid': typeof AdminEditNewsNewsidRoute
+  '/admin/new/news': typeof AdminNewNewsIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/auth': typeof AuthRoute
+  '/chat': typeof ChatLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
   '/admin/': typeof AdminIndexLazyRoute
+  '/admin/edit/news/$newsid': typeof AdminEditNewsNewsidRoute
+  '/admin/new/news/': typeof AdminNewNewsIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -128,35 +181,55 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/chat'
     | '/article/$articleid'
     | '/videos/$videoid'
     | '/admin'
+    | '/admin/edit/news/$newsid'
+    | '/admin/new/news'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/article/$articleid' | '/videos/$videoid' | '/admin'
+  to:
+    | '/'
+    | '/auth'
+    | '/chat'
+    | '/article/$articleid'
+    | '/videos/$videoid'
+    | '/admin'
+    | '/admin/edit/news/$newsid'
+    | '/admin/new/news'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/chat'
     | '/article/$articleid'
     | '/videos/$videoid'
     | '/admin/'
+    | '/admin/edit/news/$newsid'
+    | '/admin/new/news/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AuthRoute: typeof AuthRoute
+  ChatLazyRoute: typeof ChatLazyRoute
   ArticleArticleidRoute: typeof ArticleArticleidRoute
   VideosVideoidRoute: typeof VideosVideoidRoute
   AdminIndexLazyRoute: typeof AdminIndexLazyRoute
+  AdminEditNewsNewsidRoute: typeof AdminEditNewsNewsidRoute
+  AdminNewNewsIndexLazyRoute: typeof AdminNewNewsIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AuthRoute: AuthRoute,
+  ChatLazyRoute: ChatLazyRoute,
   ArticleArticleidRoute: ArticleArticleidRoute,
   VideosVideoidRoute: VideosVideoidRoute,
   AdminIndexLazyRoute: AdminIndexLazyRoute,
+  AdminEditNewsNewsidRoute: AdminEditNewsNewsidRoute,
+  AdminNewNewsIndexLazyRoute: AdminNewNewsIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -171,9 +244,12 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/auth",
+        "/chat",
         "/article/$articleid",
         "/videos/$videoid",
-        "/admin/"
+        "/admin/",
+        "/admin/edit/news/$newsid",
+        "/admin/new/news/"
       ]
     },
     "/": {
@@ -181,6 +257,9 @@ export const routeTree = rootRoute
     },
     "/auth": {
       "filePath": "auth.tsx"
+    },
+    "/chat": {
+      "filePath": "chat.lazy.tsx"
     },
     "/article/$articleid": {
       "filePath": "article/$articleid.tsx"
@@ -190,6 +269,12 @@ export const routeTree = rootRoute
     },
     "/admin/": {
       "filePath": "admin/index.lazy.tsx"
+    },
+    "/admin/edit/news/$newsid": {
+      "filePath": "admin/edit/news/$newsid.tsx"
+    },
+    "/admin/new/news/": {
+      "filePath": "admin/new/news/index.lazy.tsx"
     }
   }
 }

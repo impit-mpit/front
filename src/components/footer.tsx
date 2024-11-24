@@ -3,7 +3,7 @@ import Divider from "./divider";
 
 export default function Footer(){
     return(
-        <div className="mt-5 rounded-[20px] flex flex-col bg-white w-full gap-6 px-[60px] py-[30px]">
+        <div className="mt-5 rounded-[20px] xl:flex hidden flex-col bg-white w-full gap-6 px-[60px] py-[30px]">
             <Divider />
             <div className="grid grid-cols-4 label">
                 <div className="flex uppercase flex-col gap-6">

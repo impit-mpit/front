@@ -13,6 +13,8 @@ import {
 } from 'msw'
 import type {
   AiV1ChatResponse,
+  AuthV1LoginResponse,
+  AuthV1TokenResponse,
   CategoryV1Category,
   CategoryV1GetCategoryFeedResponse,
   MediaV1GetMediaFeedResponse,
@@ -25,9 +27,11 @@ import type {
 
 export const getAIServiceChatResponseMock = (overrideResponse: Partial< AiV1ChatResponse > = {}): AiV1ChatResponse => ({message: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
-export const getCategoryServiceGetCategoryFeedResponseMock = (overrideResponse: Partial< CategoryV1GetCategoryFeedResponse > = {}): CategoryV1GetCategoryFeedResponse => ({category: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
+export const getCategoryServiceGetCategoryFeedResponseMock = (overrideResponse: Partial< CategoryV1GetCategoryFeedResponse > = {}): CategoryV1GetCategoryFeedResponse => ({category: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), tag: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
 
-export const getCategoryServiceGetCategoryByIdResponseMock = (overrideResponse: Partial< CategoryV1Category > = {}): CategoryV1Category => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
+export const getCategoryServiceGetCategoryByIdResponseMock = (overrideResponse: Partial< CategoryV1Category > = {}): CategoryV1Category => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), tag: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), ...overrideResponse})
+
+export const getAuthServiceLoginResponseMock = (overrideResponse: Partial< AuthV1LoginResponse > = {}): AuthV1LoginResponse => ({token: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
 export const getMediaServiceGetMediaFeedResponseMock = (overrideResponse: Partial< MediaV1GetMediaFeedResponse > = {}): MediaV1GetMediaFeedResponse => ({media: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), shortDescription: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), thumbnailUrl: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), title: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), videoUrl: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
 
@@ -40,6 +44,8 @@ export const getNewsServiceGetNewsByIdResponseMock = (overrideResponse: Partial<
 export const getTagsServiceGetTagsFeedResponseMock = (overrideResponse: Partial< TagsV1GetTagsFeedResponse > = {}): TagsV1GetTagsFeedResponse => ({tags: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
 
 export const getTagsServiceGetTagsByIdResponseMock = (overrideResponse: Partial< TagsV1Tags > = {}): TagsV1Tags => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
+
+export const getAuthServiceTokenResponseMock = (overrideResponse: Partial< AuthV1TokenResponse > = {}): AuthV1TokenResponse => ({username: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
 
 export const getAIServiceChatMockHandler = (overrideResponse?: AiV1ChatResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<AiV1ChatResponse> | AiV1ChatResponse)) => {
@@ -104,6 +110,18 @@ export const getCategoryServiceDeleteCategoryMockHandler = (overrideResponse?: u
     return new HttpResponse(null,
       { status: 200,
         
+      })
+  })
+}
+
+export const getAuthServiceLoginMockHandler = (overrideResponse?: AuthV1LoginResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<AuthV1LoginResponse> | AuthV1LoginResponse)) => {
+  return http.post('*/v1/login', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getAuthServiceLoginResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
       })
   })
 }
@@ -269,6 +287,18 @@ export const getTagsServiceDeleteTagsMockHandler = (overrideResponse?: unknown |
       })
   })
 }
+
+export const getAuthServiceTokenMockHandler = (overrideResponse?: AuthV1TokenResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<AuthV1TokenResponse> | AuthV1TokenResponse)) => {
+  return http.post('*/v1/token', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getAuthServiceTokenResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 export const getMock = () => [
   getAIServiceChatMockHandler(),
   getCategoryServiceGetCategoryFeedMockHandler(),
@@ -276,6 +306,7 @@ export const getMock = () => [
   getCategoryServiceGetCategoryByIdMockHandler(),
   getCategoryServiceUpdateCategoryMockHandler(),
   getCategoryServiceDeleteCategoryMockHandler(),
+  getAuthServiceLoginMockHandler(),
   getMediaServiceGetMediaFeedMockHandler(),
   getMediaServiceCreateMediaMockHandler(),
   getMediaServiceGetMediaByIdMockHandler(),
@@ -290,5 +321,6 @@ export const getMock = () => [
   getTagsServiceCreateTagsMockHandler(),
   getTagsServiceGetTagsByIdMockHandler(),
   getTagsServiceUpdateTagsMockHandler(),
-  getTagsServiceDeleteTagsMockHandler()
+  getTagsServiceDeleteTagsMockHandler(),
+  getAuthServiceTokenMockHandler()
 ]

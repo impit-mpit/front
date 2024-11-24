@@ -3,10 +3,8 @@
  * Do not edit manually.
  * OpenAPI spec version: 0.0.1
  */
-import type { CategoryV1Tag } from './categoryV1Tag';
 
-export interface CategoryV1Category {
+export interface CategoryV1Tag {
   id?: string;
   name?: string;
-  tag?: CategoryV1Tag[];
 }

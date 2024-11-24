@@ -12,9 +12,10 @@ function RouteComponent() {
   const {data} = useMediaServiceGetMediaById(id.videoid)
   console.log(data)
   return (
-    <div>
+    <div className='px-10 py-5 my-5 flex flex-col gap-4 bg-white rounded-[20px]'>
+      <p className='label text-2xl'>{data?.title}</p>
       <Player url={data?.videoUrl} thumb={data?.thumbnailUrl} title={data?.title} />
-      <p>
+      <p >
       {data?.description}
       </p>
     </div>

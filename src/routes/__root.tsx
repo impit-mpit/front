@@ -27,7 +27,7 @@ function Root() {
     );
   else
     return (
-      <div className="bg-bg min-h-screen px-[120px] py-6 text-text-primary">
+      <div className="bg-bg min-h-screen xl:px-[120px] py-6 px-4 text-text-primary">
         <Header />
         <Outlet />
         <Footer />

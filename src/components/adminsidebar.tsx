@@ -5,7 +5,7 @@ const AdminSidebar = () => {
   const active = useActive((state) => state.active);
   const setActive = useActive((state) => state.setActive);
   return (
-    <div className="w-[267px] bg-white flex flex-col gap-5 p-4 rounded-[20px]">
+    <div className="w-[267px] bg-white flex flex-col gap-5 p-4 rounded-[20px] h-fit">
       <div className="bg-bg flex flex-row items-center gap-[10px] py-3 px-[21px] w-[235px] rounded-lg">
         <img src={Logo} className="w-8 h-8" />
         <div className="flex text-[21px] leading-6 label font-bold flex-row items-center">
@@ -41,6 +41,13 @@ const AdminSidebar = () => {
         >
           <DocumentText fill={active === 'specialist' ? '#00A9FF' : '#000'} />
           <p>Специалисты</p>
+        </div>
+        <div
+          className={`flex flex-row items-center p-2 gap-3 rounded-xl hover:bg-[#E8F7FF] ${active === 'tags' ? 'bg-content-primary bg-opacity-20' : ''} `}
+          onClick={() => setActive('tags')}
+        >
+          <DocumentText fill={active === 'tags' ? '#00A9FF' : '#000'} />
+          <p>Теги</p>
         </div>
       </div>
     </div>

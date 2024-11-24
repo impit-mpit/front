@@ -6,6 +6,7 @@ import News from '../../components/admin/news'
 import Archive from '../../components/admin/archive'
 import Resourses from '../../components/admin/resourses'
 import Specialist from '../../components/admin/specialist'
+import Tags from '../../components/admin/tags'
 
 export const Route = createLazyFileRoute('/admin/')({
   component: RouteComponent,
@@ -28,6 +29,9 @@ function RouteComponent() {
             break;
         case "specialist":
             componentToRender = <Specialist />;
+            break;
+        case "tags":
+            componentToRender = <Tags />;
             break;
         default:
             componentToRender = <div>Выберите категорию</div>; // или любой другой компонент по умолчанию

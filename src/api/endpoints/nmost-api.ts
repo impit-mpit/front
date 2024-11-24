@@ -23,6 +23,9 @@ import type {
 import type {
   AiV1ChatResponse,
   AiV1CreateChatRequest,
+  AuthV1LoginRequest,
+  AuthV1LoginResponse,
+  AuthV1TokenResponse,
   CategoryServiceGetCategoryFeedParams,
   CategoryV1Category,
   CategoryV1CreateCategoryRequest,
@@ -419,6 +422,59 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getCategoryServiceDeleteCategoryMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const authServiceLogin = (
+    authV1LoginRequest: AuthV1LoginRequest,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<AuthV1LoginResponse>(
+      {url: `/v1/login`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: authV1LoginRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getAuthServiceLoginMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authServiceLogin>>, TError,{data: AuthV1LoginRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authServiceLogin>>, TError,{data: AuthV1LoginRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authServiceLogin>>, {data: AuthV1LoginRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authServiceLogin(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthServiceLoginMutationResult = NonNullable<Awaited<ReturnType<typeof authServiceLogin>>>
+    export type AuthServiceLoginMutationBody = AuthV1LoginRequest
+    export type AuthServiceLoginMutationError = ErrorType<unknown>
+
+    export const useAuthServiceLogin = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authServiceLogin>>, TError,{data: AuthV1LoginRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof authServiceLogin>>,
+        TError,
+        {data: AuthV1LoginRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthServiceLoginMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1382,6 +1438,57 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getTagsServiceDeleteTagsMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const authServiceToken = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<AuthV1TokenResponse>(
+      {url: `/v1/token`, method: 'POST', signal
+    },
+      );
+    }
+  
+
+
+export const getAuthServiceTokenMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authServiceToken>>, TError,void, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authServiceToken>>, TError,void, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authServiceToken>>, void> = () => {
+          
+
+          return  authServiceToken()
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthServiceTokenMutationResult = NonNullable<Awaited<ReturnType<typeof authServiceToken>>>
+    
+    export type AuthServiceTokenMutationError = ErrorType<unknown>
+
+    export const useAuthServiceToken = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authServiceToken>>, TError,void, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof authServiceToken>>,
+        TError,
+        void,
+        TContext
+      > => {
+
+      const mutationOptions = getAuthServiceTokenMutationOptions(options);
 
       return useMutation(mutationOptions);
     }

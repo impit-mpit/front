@@ -6,10 +6,14 @@
 
 export * from './aiV1ChatResponse';
 export * from './aiV1CreateChatRequest';
+export * from './authV1LoginRequest';
+export * from './authV1LoginResponse';
+export * from './authV1TokenResponse';
 export * from './categoryServiceGetCategoryFeedParams';
 export * from './categoryV1Category';
 export * from './categoryV1CreateCategoryRequest';
 export * from './categoryV1GetCategoryFeedResponse';
+export * from './categoryV1Tag';
 export * from './categoryV1UpdateCategoryRequest';
 export * from './mediaServiceGetMediaFeedParams';
 export * from './mediaV1CreateMediaRequest';
