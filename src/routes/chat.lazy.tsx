@@ -19,14 +19,15 @@ function RouteComponent() {
     })
 };
   return (
-    <div className="my-5 bg-white h-[80vh] p-4 rounded-[20px] w-full flex flex-col justify-between">
+    <div className="my-5 bg-white h-[80vh] p-4 rounded-[20px] w-full flex flex-col gap-4 justify-between">
     <div className='overflow-scroll'>
-        {isPending ? "Загрузка...." : data?.message}
+        {isPending ? "Пожалуйста подождите, ИИ генерирует ответ на ваш вопрос." : data?.message}
+        {!isPending && !data ? "Пожалуйста учтите что ИИ дает ответы только на те вопросы, которые есть в его базе" : null}
     </div>
     <div className='flex flex-row items-center'>
 
       <input
-        className="border border-[#595F6B14] rounded-[20px] py-4 px-6 flex-1"
+        className="border border-[#595F6B14] rounded-[20px] py-4 px-6 flex-1 mr-5"
         placeholder="Задайте вопрос ИИ"
         onChange={(e) => setMessage(e.target.value)}
         value={message}
