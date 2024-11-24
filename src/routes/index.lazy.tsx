@@ -4,7 +4,6 @@ import {
   useNewsServiceGetNewsFeed,
 } from '../api/endpoints/nmost-api';
 import { ArrowRight16, Chat } from '@atomaro/icons';
-import Divider from '../components/divider';
 import Image from "./../img/image1.png"
 
 export const Route = createLazyFileRoute('/')({
