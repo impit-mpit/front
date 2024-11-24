@@ -28,16 +28,16 @@ const CommunityCard = ({data}:any) =>{
 const VideoCard = ({ data }: any) => {
   return (
     <Link to={`/videos/${data.id}`}>
-      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between px-6 py-[30px] bg-white rounded-[20px]">
+      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between xl:px-6 px-2 xl:py-[30px] py-3 bg-white rounded-[20px]">
         <div className="flex flex-row justify-between">
-          <p className="font-medium text-2xl label truncate max-w-[400px]">
+          <p className="font-medium xl:text-2xl text-[6px] label truncate xl:max-w-[400px] max-w-[100px]">
             {data.title}
           </p>
           <div className="bg-content-primary rounded-full flex items-center justify-center !w-8 !h-8">
             <ArrowRight16 fill="#fff" />
           </div>
         </div>
-        <p className="text-2xl text-text-secondary h-fit text-wrap">
+        <p className="xl:text-2xl text-[6px] text-text-secondary h-fit text-wrap">
           {data.shortDescription}
         </p>
       </div>
@@ -89,8 +89,8 @@ function Index() {
       <p>Свежие новости и</p>
         <p className="text-content-primary">статьи</p>
       </div>
-      <div className="xl:flex hidden py-9 flex-col gap-6">
-        <div className="grid grid-cols-3 h-[320px] items-center bg-white rounded-[20px]">
+      <div className="flex xl:py-9 flex-col gap-6">
+        <div className="xl:grid  hidden grid-cols-3 h-[320px] items-center bg-white rounded-[20px]">
           <div className="bg-slate-500 h-full !w-[500px] rounded-[20px]"></div>
           <div className="flex flex-col col-span-2 gap-4 py-7 pr-8">
             <p className="text-4xl text-balance label">

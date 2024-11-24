@@ -21,6 +21,9 @@ import type {
   MediaV1Media,
   NewsV1GetNewsFeedResponse,
   NewsV1News,
+  SpecialistV1GetSpecialistFeedResponse,
+  SpecialistV1Specialist,
+  TagsV1GetTagsByCategoryResponse,
   TagsV1GetTagsFeedResponse,
   TagsV1Tags
 } from '../model'
@@ -41,7 +44,13 @@ export const getNewsServiceGetNewsFeedResponseMock = (overrideResponse: Partial<
 
 export const getNewsServiceGetNewsByIdResponseMock = (overrideResponse: Partial< NewsV1News > = {}): NewsV1News => ({body: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), imageUrl: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), title: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
+export const getSpecialistServiceGetSpecialistFeedResponseMock = (overrideResponse: Partial< SpecialistV1GetSpecialistFeedResponse > = {}): SpecialistV1GetSpecialistFeedResponse => ({Specialist: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({description: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), fio: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
+
+export const getSpecialistServiceGetSpecialistByIdResponseMock = (overrideResponse: Partial< SpecialistV1Specialist > = {}): SpecialistV1Specialist => ({description: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), fio: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
+
 export const getTagsServiceGetTagsFeedResponseMock = (overrideResponse: Partial< TagsV1GetTagsFeedResponse > = {}): TagsV1GetTagsFeedResponse => ({tags: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), total: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), ...overrideResponse})
+
+export const getTagsServiceGetTagsByCategoryResponseMock = (overrideResponse: Partial< TagsV1GetTagsByCategoryResponse > = {}): TagsV1GetTagsByCategoryResponse => ({tags: faker.helpers.arrayElement([Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined])})), undefined]), ...overrideResponse})
 
 export const getTagsServiceGetTagsByIdResponseMock = (overrideResponse: Partial< TagsV1Tags > = {}): TagsV1Tags => ({id: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), ...overrideResponse})
 
@@ -234,6 +243,60 @@ export const getNewsServiceDeleteNewsMockHandler = (overrideResponse?: unknown |
   })
 }
 
+export const getSpecialistServiceGetSpecialistFeedMockHandler = (overrideResponse?: SpecialistV1GetSpecialistFeedResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<SpecialistV1GetSpecialistFeedResponse> | SpecialistV1GetSpecialistFeedResponse)) => {
+  return http.get('*/v1/specialist', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSpecialistServiceGetSpecialistFeedResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
+
+export const getSpecialistServiceCreateSpecialistMockHandler = (overrideResponse?: unknown | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<unknown> | unknown)) => {
+  return http.post('*/v1/specialist', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 200,
+        
+      })
+  })
+}
+
+export const getSpecialistServiceGetSpecialistByIdMockHandler = (overrideResponse?: SpecialistV1Specialist | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<SpecialistV1Specialist> | SpecialistV1Specialist)) => {
+  return http.get('*/v1/specialist/:id', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getSpecialistServiceGetSpecialistByIdResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
+
+export const getSpecialistServiceUpdateSpecialistMockHandler = (overrideResponse?: unknown | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<unknown> | unknown)) => {
+  return http.put('*/v1/specialist/:id', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 200,
+        
+      })
+  })
+}
+
+export const getSpecialistServiceDeleteSpecialistMockHandler = (overrideResponse?: unknown | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<unknown> | unknown)) => {
+  return http.delete('*/v1/specialist/:id', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 200,
+        
+      })
+  })
+}
+
 export const getTagsServiceGetTagsFeedMockHandler = (overrideResponse?: TagsV1GetTagsFeedResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<TagsV1GetTagsFeedResponse> | TagsV1GetTagsFeedResponse)) => {
   return http.get('*/v1/tags', async (info) => {await delay(1000);
   
@@ -252,6 +315,18 @@ export const getTagsServiceCreateTagsMockHandler = (overrideResponse?: unknown |
     return new HttpResponse(null,
       { status: 200,
         
+      })
+  })
+}
+
+export const getTagsServiceGetTagsByCategoryMockHandler = (overrideResponse?: TagsV1GetTagsByCategoryResponse | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<TagsV1GetTagsByCategoryResponse> | TagsV1GetTagsByCategoryResponse)) => {
+  return http.get('*/v1/tags/category/:id', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getTagsServiceGetTagsByCategoryResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
       })
   })
 }
@@ -317,8 +392,14 @@ export const getMock = () => [
   getNewsServiceGetNewsByIdMockHandler(),
   getNewsServiceUpdateNewsMockHandler(),
   getNewsServiceDeleteNewsMockHandler(),
+  getSpecialistServiceGetSpecialistFeedMockHandler(),
+  getSpecialistServiceCreateSpecialistMockHandler(),
+  getSpecialistServiceGetSpecialistByIdMockHandler(),
+  getSpecialistServiceUpdateSpecialistMockHandler(),
+  getSpecialistServiceDeleteSpecialistMockHandler(),
   getTagsServiceGetTagsFeedMockHandler(),
   getTagsServiceCreateTagsMockHandler(),
+  getTagsServiceGetTagsByCategoryMockHandler(),
   getTagsServiceGetTagsByIdMockHandler(),
   getTagsServiceUpdateTagsMockHandler(),
   getTagsServiceDeleteTagsMockHandler(),

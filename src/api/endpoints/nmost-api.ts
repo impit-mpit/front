@@ -41,8 +41,14 @@ import type {
   NewsV1GetNewsFeedResponse,
   NewsV1News,
   NewsV1UpdateNewsRequest,
+  SpecialistServiceGetSpecialistFeedParams,
+  SpecialistV1CreateSpecialistRequest,
+  SpecialistV1GetSpecialistFeedResponse,
+  SpecialistV1Specialist,
+  SpecialistV1UpdateSpecialistRequest,
   TagsServiceGetTagsFeedParams,
   TagsV1CreateTagsRequest,
+  TagsV1GetTagsByCategoryResponse,
   TagsV1GetTagsFeedResponse,
   TagsV1Tags,
   TagsV1UpdateTagsRequest
@@ -1121,6 +1127,327 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     
+export const specialistServiceGetSpecialistFeed = (
+    params?: SpecialistServiceGetSpecialistFeedParams,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<SpecialistV1GetSpecialistFeedResponse>(
+      {url: `/v1/specialist`, method: 'GET',
+        params, signal
+    },
+      );
+    }
+  
+
+export const getSpecialistServiceGetSpecialistFeedQueryKey = (params?: SpecialistServiceGetSpecialistFeedParams,) => {
+    return [`/v1/specialist`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getSpecialistServiceGetSpecialistFeedQueryOptions = <TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError = ErrorType<unknown>>(params?: SpecialistServiceGetSpecialistFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSpecialistServiceGetSpecialistFeedQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>> = ({ signal }) => specialistServiceGetSpecialistFeed(params, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type SpecialistServiceGetSpecialistFeedQueryResult = NonNullable<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>>
+export type SpecialistServiceGetSpecialistFeedQueryError = ErrorType<unknown>
+
+
+export function useSpecialistServiceGetSpecialistFeed<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError = ErrorType<unknown>>(
+ params: undefined |  SpecialistServiceGetSpecialistFeedParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useSpecialistServiceGetSpecialistFeed<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError = ErrorType<unknown>>(
+ params?: SpecialistServiceGetSpecialistFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useSpecialistServiceGetSpecialistFeed<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError = ErrorType<unknown>>(
+ params?: SpecialistServiceGetSpecialistFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useSpecialistServiceGetSpecialistFeed<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError = ErrorType<unknown>>(
+ params?: SpecialistServiceGetSpecialistFeedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistFeed>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getSpecialistServiceGetSpecialistFeedQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const specialistServiceCreateSpecialist = (
+    specialistV1CreateSpecialistRequest: SpecialistV1CreateSpecialistRequest,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/specialist`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: specialistV1CreateSpecialistRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getSpecialistServiceCreateSpecialistMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof specialistServiceCreateSpecialist>>, TError,{data: SpecialistV1CreateSpecialistRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof specialistServiceCreateSpecialist>>, TError,{data: SpecialistV1CreateSpecialistRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof specialistServiceCreateSpecialist>>, {data: SpecialistV1CreateSpecialistRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  specialistServiceCreateSpecialist(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SpecialistServiceCreateSpecialistMutationResult = NonNullable<Awaited<ReturnType<typeof specialistServiceCreateSpecialist>>>
+    export type SpecialistServiceCreateSpecialistMutationBody = SpecialistV1CreateSpecialistRequest
+    export type SpecialistServiceCreateSpecialistMutationError = ErrorType<unknown>
+
+    export const useSpecialistServiceCreateSpecialist = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof specialistServiceCreateSpecialist>>, TError,{data: SpecialistV1CreateSpecialistRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof specialistServiceCreateSpecialist>>,
+        TError,
+        {data: SpecialistV1CreateSpecialistRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getSpecialistServiceCreateSpecialistMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const specialistServiceGetSpecialistById = (
+    id: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<SpecialistV1Specialist>(
+      {url: `/v1/specialist/${id}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getSpecialistServiceGetSpecialistByIdQueryKey = (id: string,) => {
+    return [`/v1/specialist/${id}`] as const;
+    }
+
+    
+export const getSpecialistServiceGetSpecialistByIdQueryOptions = <TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSpecialistServiceGetSpecialistByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>> = ({ signal }) => specialistServiceGetSpecialistById(id, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type SpecialistServiceGetSpecialistByIdQueryResult = NonNullable<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>>
+export type SpecialistServiceGetSpecialistByIdQueryError = ErrorType<unknown>
+
+
+export function useSpecialistServiceGetSpecialistById<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError = ErrorType<unknown>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useSpecialistServiceGetSpecialistById<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useSpecialistServiceGetSpecialistById<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useSpecialistServiceGetSpecialistById<TData = Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof specialistServiceGetSpecialistById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getSpecialistServiceGetSpecialistByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const specialistServiceUpdateSpecialist = (
+    id: string,
+    specialistV1UpdateSpecialistRequest: SpecialistV1UpdateSpecialistRequest,
+ ) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/specialist/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: specialistV1UpdateSpecialistRequest
+    },
+      );
+    }
+  
+
+
+export const getSpecialistServiceUpdateSpecialistMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof specialistServiceUpdateSpecialist>>, TError,{id: string;data: SpecialistV1UpdateSpecialistRequest}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof specialistServiceUpdateSpecialist>>, TError,{id: string;data: SpecialistV1UpdateSpecialistRequest}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof specialistServiceUpdateSpecialist>>, {id: string;data: SpecialistV1UpdateSpecialistRequest}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  specialistServiceUpdateSpecialist(id,data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SpecialistServiceUpdateSpecialistMutationResult = NonNullable<Awaited<ReturnType<typeof specialistServiceUpdateSpecialist>>>
+    export type SpecialistServiceUpdateSpecialistMutationBody = SpecialistV1UpdateSpecialistRequest
+    export type SpecialistServiceUpdateSpecialistMutationError = ErrorType<unknown>
+
+    export const useSpecialistServiceUpdateSpecialist = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof specialistServiceUpdateSpecialist>>, TError,{id: string;data: SpecialistV1UpdateSpecialistRequest}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof specialistServiceUpdateSpecialist>>,
+        TError,
+        {id: string;data: SpecialistV1UpdateSpecialistRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getSpecialistServiceUpdateSpecialistMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const specialistServiceDeleteSpecialist = (
+    id: string,
+ ) => {
+      
+      
+      return requestInstance<unknown>(
+      {url: `/v1/specialist/${id}`, method: 'DELETE'
+    },
+      );
+    }
+  
+
+
+export const getSpecialistServiceDeleteSpecialistMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof specialistServiceDeleteSpecialist>>, TError,{id: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof specialistServiceDeleteSpecialist>>, TError,{id: string}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof specialistServiceDeleteSpecialist>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  specialistServiceDeleteSpecialist(id,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SpecialistServiceDeleteSpecialistMutationResult = NonNullable<Awaited<ReturnType<typeof specialistServiceDeleteSpecialist>>>
+    
+    export type SpecialistServiceDeleteSpecialistMutationError = ErrorType<unknown>
+
+    export const useSpecialistServiceDeleteSpecialist = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof specialistServiceDeleteSpecialist>>, TError,{id: string}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof specialistServiceDeleteSpecialist>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getSpecialistServiceDeleteSpecialistMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 export const tagsServiceGetTagsFeed = (
     params?: TagsServiceGetTagsFeedParams,
  signal?: AbortSignal
@@ -1257,6 +1584,88 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     
+export const tagsServiceGetTagsByCategory = (
+    id: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return requestInstance<TagsV1GetTagsByCategoryResponse>(
+      {url: `/v1/tags/category/${id}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getTagsServiceGetTagsByCategoryQueryKey = (id: string,) => {
+    return [`/v1/tags/category/${id}`] as const;
+    }
+
+    
+export const getTagsServiceGetTagsByCategoryQueryOptions = <TData = Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getTagsServiceGetTagsByCategoryQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>> = ({ signal }) => tagsServiceGetTagsByCategory(id, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type TagsServiceGetTagsByCategoryQueryResult = NonNullable<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>>
+export type TagsServiceGetTagsByCategoryQueryError = ErrorType<unknown>
+
+
+export function useTagsServiceGetTagsByCategory<TData = Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError = ErrorType<unknown>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useTagsServiceGetTagsByCategory<TData = Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useTagsServiceGetTagsByCategory<TData = Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useTagsServiceGetTagsByCategory<TData = Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tagsServiceGetTagsByCategory>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getTagsServiceGetTagsByCategoryQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
 export const tagsServiceGetTagsById = (
     id: string,
  signal?: AbortSignal
