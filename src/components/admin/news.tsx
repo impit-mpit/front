@@ -18,7 +18,7 @@ export default function News() {
                     <p className="border-r">
                         {data.title}
                     </p>
-                    <p>
+                    <p className="truncate">
                         {data.shortBody}
                     </p>
                     </div>

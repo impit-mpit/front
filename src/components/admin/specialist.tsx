@@ -18,7 +18,7 @@ export default function Specialist() {
                         <p className="border-r">
                             {data.fio}
                         </p>
-                        <p>
+                        <p className="truncate">
                             {data.description}
                         </p>
                         </div>
