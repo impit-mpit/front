@@ -2,7 +2,6 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { useAIServiceChat } from '../api/endpoints/nmost-api';
 import { useState } from 'react';
 import { Send } from '@atomaro/icons';
-import { useVLLMStream } from '../api/news/ai';
 
 export const Route = createLazyFileRoute('/chat')({
   component: RouteComponent,
