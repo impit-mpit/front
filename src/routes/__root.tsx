@@ -31,7 +31,6 @@ function Root() {
         <Header />
         <Outlet />
         <Footer />
-        <TanStackRouterDevtools />
       </div>
     );
 }
