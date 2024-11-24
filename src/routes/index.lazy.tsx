@@ -14,8 +14,8 @@ export const Route = createLazyFileRoute('/')({
 const CommunityCard = ({data}:any) =>{
   return(
     <Link to={`/article/${data.id}`}>
-      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between xl:px-6 xl:py-[30px] px-2 py-3 bg-white rounded-[20px]">
-          <img src={data.imageUrl} className='bg-slate-500 w-full h-full rounded-[20px]' />
+      <div className="xl:w-[506px] xl:h-[400px] w-[140px] h-[108px] flex flex-col justify-between xl:px-6 xl:py-6 px-2 py-3 bg-white xl:rounded-[20px] rounded-[4px]">
+          <img src={data.imageUrl} className='w-full object-fill xl:h-[320px] h-[66px] xl:rounded-[20px] rounded-[4px]' />
           <p className="font-medium xl:text-2xl text-[6px] label truncate max-w-[400px]">
             {data.title}
           </p>
@@ -26,7 +26,7 @@ const CommunityCard = ({data}:any) =>{
 const VideoCard = ({ data }: any) => {
   return (
     <Link to={`/videos/${data.id}`}>
-      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between xl:px-6 px-2 xl:py-[30px] py-3 bg-white rounded-[20px]">
+      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between xl:px-6 px-2 xl:py-[30px] py-3 bg-white xl:rounded-[20px] rounded-[4px]">
         <div className="flex flex-row justify-between">
           <p className="font-medium xl:text-2xl text-[6px] label truncate xl:max-w-[400px] max-w-[100px]">
             {data.title}
@@ -88,7 +88,7 @@ function Index() {
         <p className="text-content-primary">статьи</p>
       </div>
       <div className="flex xl:py-9 flex-col gap-6">
-        <div className="xl:grid  hidden grid-cols-3 h-[320px] items-center bg-white rounded-[20px]">
+        {/* <div className="xl:grid  hidden grid-cols-3 h-[320px] items-center bg-white rounded-[20px]">
           <div className="bg-slate-500 h-full !w-[500px] rounded-[20px]"></div>
           <div className="flex flex-col col-span-2 gap-4 py-7 pr-8">
             <p className="text-4xl text-balance label">
@@ -104,7 +104,7 @@ function Index() {
               Все они подстраиваются под конкретные потребности детей.
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="grid xl:grid-cols-3 grid-cols-2 gap-8">
           {data?.news?.map((news, index) => {
             if (index < 6) return <CommunityCard key={index} data={news} />;
