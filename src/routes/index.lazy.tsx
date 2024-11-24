@@ -14,10 +14,8 @@ export const Route = createLazyFileRoute('/')({
 const CommunityCard = ({data}:any) =>{
   return(
     <Link to={`/article/${data.id}`}>
-      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between px-6 py-[30px] bg-white rounded-[20px]">
-        <div className='w-full h-full flex items-center justify-center rounded-[20px]'>
-          <img src={data.image_url} className='bg-slate-500' />
-        </div>
+      <div className="xl:w-[506px] xl:h-[280px] w-[140px] h-[116px] flex flex-col justify-between xl:px-6 xl:py-[30px] px-2 py-3 bg-white rounded-[20px]">
+          <img src={data.imageUrl} className='bg-slate-500 w-full h-full rounded-[20px]' />
           <p className="font-medium xl:text-2xl text-[6px] label truncate max-w-[400px]">
             {data.title}
           </p>
@@ -58,7 +56,7 @@ function Index() {
 
   console.log(data)
   return (
-    <div className="flex flex-col gap-16 ">
+    <div className="flex flex-col xl:gap-16 gap-4 ">
       <div className="flex flex-row rounded-[20px] bg-white items-center justify-center mt-5 gap-4">
         <div className="w-full xl:h-[641px] h-[110px] flex items-center justify-center rounded-[20px]">
           <div className='flex flex-col gap-4 items-center justify-center'>
@@ -75,13 +73,13 @@ function Index() {
         <div className='bg-url(`./../img/image 13.png`) w-full h-full rounded-r-[20px]'><img className='rounded-r-[20px]' src={Image}  /></div>
       </div>
       
-      <div className="flex flex-row items-center label xl:text-4xl text-[10px] uppercase gap-3">
+      <div className="flex flex-row items-center label xl:text-4xl text-[10px] uppercase">
       <p className="text-content-primary">Информация о деятельности сообщества</p>
 
       </div>
-      <div className="grid xl:grid-cols-3 grid-cols-2 gap-8">
-          {data?.news?.map((news, index) => {
-            if (index < 6) return <CommunityCard key={index} data={news} />;
+      <div className="grid xl:grid-cols-3 grid-cols-2 gap-2">
+          {videos?.media?.map((media, index) => {
+            if (index < 3) return <VideoCard key={index} data={media} />;
           })}
         </div>
       <div className="flex flex-row items-center label xl:text-4xl text-[10px] uppercase gap-3">
@@ -107,11 +105,12 @@ function Index() {
             </p>
           </div>
         </div>
-        <div className="grid xl:grid-cols-3 grid-cols-2 gap-2">
-          {videos?.media?.map((media, index) => {
-            if (index < 3) return <VideoCard key={index} data={media} />;
+        <div className="grid xl:grid-cols-3 grid-cols-2 gap-8">
+          {data?.news?.map((news, index) => {
+            if (index < 6) return <CommunityCard key={index} data={news} />;
           })}
         </div>
+        
       </div>
       <div
         className="fixed bottom-10 right-5 bg-content-primary rounded-full flex items-center justify-center p-2"

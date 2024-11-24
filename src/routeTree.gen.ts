@@ -20,13 +20,23 @@ import { Route as AdminEditNewsNewsidImport } from './routes/admin/edit/news/$ne
 
 // Create Virtual Routes
 
+const SpecialistLazyImport = createFileRoute('/specialist')()
 const ChatLazyImport = createFileRoute('/chat')()
 const AutismLazyImport = createFileRoute('/autism')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
+const AdminNewSpecialistIndexLazyImport = createFileRoute(
+  '/admin/new/specialist/',
+)()
 const AdminNewNewsIndexLazyImport = createFileRoute('/admin/new/news/')()
 
 // Create/Update Routes
+
+const SpecialistLazyRoute = SpecialistLazyImport.update({
+  id: '/specialist',
+  path: '/specialist',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/specialist.lazy').then((d) => d.Route))
 
 const ChatLazyRoute = ChatLazyImport.update({
   id: '/chat',
@@ -69,6 +79,15 @@ const ArticleArticleidRoute = ArticleArticleidImport.update({
   path: '/article/$articleid',
   getParentRoute: () => rootRoute,
 } as any)
+
+const AdminNewSpecialistIndexLazyRoute =
+  AdminNewSpecialistIndexLazyImport.update({
+    id: '/admin/new/specialist/',
+    path: '/admin/new/specialist/',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/new/specialist/index.lazy').then((d) => d.Route),
+  )
 
 const AdminNewNewsIndexLazyRoute = AdminNewNewsIndexLazyImport.update({
   id: '/admin/new/news/',
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatLazyImport
       parentRoute: typeof rootRoute
     }
+    '/specialist': {
+      id: '/specialist'
+      path: '/specialist'
+      fullPath: '/specialist'
+      preLoaderRoute: typeof SpecialistLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/article/$articleid': {
       id: '/article/$articleid'
       path: '/article/$articleid'
@@ -151,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminNewNewsIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/admin/new/specialist/': {
+      id: '/admin/new/specialist/'
+      path: '/admin/new/specialist'
+      fullPath: '/admin/new/specialist'
+      preLoaderRoute: typeof AdminNewSpecialistIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -161,11 +194,13 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/autism': typeof AutismLazyRoute
   '/chat': typeof ChatLazyRoute
+  '/specialist': typeof SpecialistLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
   '/admin': typeof AdminIndexLazyRoute
   '/admin/edit/news/$newsid': typeof AdminEditNewsNewsidRoute
   '/admin/new/news': typeof AdminNewNewsIndexLazyRoute
+  '/admin/new/specialist': typeof AdminNewSpecialistIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -173,11 +208,13 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/autism': typeof AutismLazyRoute
   '/chat': typeof ChatLazyRoute
+  '/specialist': typeof SpecialistLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
   '/admin': typeof AdminIndexLazyRoute
   '/admin/edit/news/$newsid': typeof AdminEditNewsNewsidRoute
   '/admin/new/news': typeof AdminNewNewsIndexLazyRoute
+  '/admin/new/specialist': typeof AdminNewSpecialistIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -186,11 +223,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/autism': typeof AutismLazyRoute
   '/chat': typeof ChatLazyRoute
+  '/specialist': typeof SpecialistLazyRoute
   '/article/$articleid': typeof ArticleArticleidRoute
   '/videos/$videoid': typeof VideosVideoidRoute
   '/admin/': typeof AdminIndexLazyRoute
   '/admin/edit/news/$newsid': typeof AdminEditNewsNewsidRoute
   '/admin/new/news/': typeof AdminNewNewsIndexLazyRoute
+  '/admin/new/specialist/': typeof AdminNewSpecialistIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -200,33 +239,39 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autism'
     | '/chat'
+    | '/specialist'
     | '/article/$articleid'
     | '/videos/$videoid'
     | '/admin'
     | '/admin/edit/news/$newsid'
     | '/admin/new/news'
+    | '/admin/new/specialist'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/autism'
     | '/chat'
+    | '/specialist'
     | '/article/$articleid'
     | '/videos/$videoid'
     | '/admin'
     | '/admin/edit/news/$newsid'
     | '/admin/new/news'
+    | '/admin/new/specialist'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/autism'
     | '/chat'
+    | '/specialist'
     | '/article/$articleid'
     | '/videos/$videoid'
     | '/admin/'
     | '/admin/edit/news/$newsid'
     | '/admin/new/news/'
+    | '/admin/new/specialist/'
   fileRoutesById: FileRoutesById
 }
 
@@ -235,11 +280,13 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AutismLazyRoute: typeof AutismLazyRoute
   ChatLazyRoute: typeof ChatLazyRoute
+  SpecialistLazyRoute: typeof SpecialistLazyRoute
   ArticleArticleidRoute: typeof ArticleArticleidRoute
   VideosVideoidRoute: typeof VideosVideoidRoute
   AdminIndexLazyRoute: typeof AdminIndexLazyRoute
   AdminEditNewsNewsidRoute: typeof AdminEditNewsNewsidRoute
   AdminNewNewsIndexLazyRoute: typeof AdminNewNewsIndexLazyRoute
+  AdminNewSpecialistIndexLazyRoute: typeof AdminNewSpecialistIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -247,11 +294,13 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AutismLazyRoute: AutismLazyRoute,
   ChatLazyRoute: ChatLazyRoute,
+  SpecialistLazyRoute: SpecialistLazyRoute,
   ArticleArticleidRoute: ArticleArticleidRoute,
   VideosVideoidRoute: VideosVideoidRoute,
   AdminIndexLazyRoute: AdminIndexLazyRoute,
   AdminEditNewsNewsidRoute: AdminEditNewsNewsidRoute,
   AdminNewNewsIndexLazyRoute: AdminNewNewsIndexLazyRoute,
+  AdminNewSpecialistIndexLazyRoute: AdminNewSpecialistIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -268,11 +317,13 @@ export const routeTree = rootRoute
         "/auth",
         "/autism",
         "/chat",
+        "/specialist",
         "/article/$articleid",
         "/videos/$videoid",
         "/admin/",
         "/admin/edit/news/$newsid",
-        "/admin/new/news/"
+        "/admin/new/news/",
+        "/admin/new/specialist/"
       ]
     },
     "/": {
@@ -286,6 +337,9 @@ export const routeTree = rootRoute
     },
     "/chat": {
       "filePath": "chat.lazy.tsx"
+    },
+    "/specialist": {
+      "filePath": "specialist.lazy.tsx"
     },
     "/article/$articleid": {
       "filePath": "article/$articleid.tsx"
@@ -301,6 +355,9 @@ export const routeTree = rootRoute
     },
     "/admin/new/news/": {
       "filePath": "admin/new/news/index.lazy.tsx"
+    },
+    "/admin/new/specialist/": {
+      "filePath": "admin/new/specialist/index.lazy.tsx"
     }
   }
 }
